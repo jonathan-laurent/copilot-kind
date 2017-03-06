@@ -1,21 +1,19 @@
-{-# LANGUAGE RebindableSyntax #-}
-
 module Incr where
 
 import Prelude ()
-import Language.Copilot
-import Copilot.Kind
+import Copilot.Language
 
-spec :: Spec
+import Copilot.Theorem
+import Copilot.Theorem.Prover.Z3
+
 spec = do
-  prop "gt1" (x > 1)
-  prop "neq0" (x /= 0)
+  bounds <- prop "bounds" (forall $ x < 255)
+  theorem "gt1" (forall $ x > 1) (assume bounds >> induct)
+  theorem "neq0" (forall $ x /= 0) (assume bounds >> induct)
 
   where
     x :: Stream Word8
     x = [2] ++ (1 + x)
-    
-scheme :: ProofScheme
-scheme = do
-  assert "gt1"
-  check  "neq0"
+
+induct :: Proof Universal
+induct = induction def { nraNLSat = False, debug = True }
