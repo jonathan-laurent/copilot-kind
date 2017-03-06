@@ -51,7 +51,9 @@ library
                           , xml
                           , random
                           , transformers
-                          , smtlib2 >= 0.3
+                          , smtlib2 >= 1.0
+                          , smtlib2-pipe >= 1.0
+                          , smtlib2-debug >= 1.0
                           , ansi-terminal
 
   exposed-modules         : Copilot.Theorem

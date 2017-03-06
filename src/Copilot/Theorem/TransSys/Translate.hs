@@ -209,7 +209,7 @@ expr t (C.ExternArray _ _ _ _ _ _ _) = newUnconstrainedVar t
 
 expr t (C.ExternStruct _ _ _ _) = newUnconstrainedVar t
 
-expr t (C.GetField _ _ _ _) = undefined
+expr _ (C.GetField _ _ _ _) = undefined
 
 newUnconstrainedVar :: Type t -> Trans (Expr t)
 newUnconstrainedVar t = do
